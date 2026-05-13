@@ -18,13 +18,13 @@ def calcular_taxa(populacao_zaun, populacao_piltover, situacao_zaun):
     else:
         populacao_total = populacao_zaun + populacao_piltover
         taxa_zaun = populacao_zaun / populacao_total
-    return int(taxa_zaun)
+    return taxa_zaun
 
 def distribuir_recursos(taxa_zaun, total_recursos):
     taxa_piltover = 1 - taxa_zaun
     recursos_zaun = total_recursos * taxa_zaun
     recursos_piltover = total_recursos * taxa_piltover
-    print(f'Foi decidido que será {recursos_piltover} para Piltover e {recursos_zaun} para Zaun!')
+    return [recursos_zaun, recursos_piltover]
 
 def mensagem(recursos_zaun, recursos_piltover):
     razao = recursos_zaun/recursos_piltover
@@ -42,8 +42,8 @@ def mensagem(recursos_zaun, recursos_piltover):
         print("A situação não está muito favorável para Zaun...")
          
 taxa_zaun = calcular_taxa(populacao_zaun, populacao_piltover, situacao_zaun)
-recursos_zaun = 0
-recursos_piltover = 0
-distribuir_recursos(taxa_zaun, total_recursos)
+recursos_zaun = distribuir_recursos(taxa_zaun, total_recursos)[0]
+recursos_piltover = distribuir_recursos(taxa_zaun, total_recursos)[1]
+print(f'Foi decidido que será {recursos_piltover:.1f} para Piltover e {recursos_zaun:.1f} para Zaun!')
 mensagem(recursos_zaun, recursos_piltover)
         
