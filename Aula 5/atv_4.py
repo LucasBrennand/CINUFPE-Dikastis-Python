@@ -34,7 +34,8 @@ def ataques_refletidos(numeros_ataques):
     numeros_ataques = numeros_ataques.split(' ')
     for numero in numeros_ataques:
         if numero != " ":
-            ataques_lista.append(int(numero))
+            numero = int(numero)
+            ataques_lista.append(numero)
     for numero in ataques_lista:
         for numero_favorito in favoritos:
             if numero % numero_favorito == 0:
@@ -44,24 +45,25 @@ def ataques_refletidos(numeros_ataques):
 
 print("Entendo… Vamos começar do começo.")
 dia_inicial = int(input())
+
 missao_sucesso = False
 
 
-for dia in range(dia_inicial, -1, -1):
-    musica = input() # musica - autor
-    nome_musica = musica.split(' - ')[0]
-    autor_musica = musica.split(' - ')[1]
-    
+while dia_inicial >= 0:
     print()
-    print(f'====== Restam {dia} dias. ======')
+    print(f'====== Restam {dia_inicial} dias. ======')
+    
+    musica = input() # musica - autor
+    musica_split = musica.split(' - ')
+    nome_musica = musica_split[0]
+    autor_musica = musica_split[1]
+    
     print(f'Escutando: {nome_musica} - {autor_musica}')
     alvo = input() # nome - ameaca - armado
-    nome_alvo = alvo.split(' - ')[0]
-    alvo_splitado = alvo.split(' - ')
-    
+    nome_alvo = alvo.split(' - ')[0]    
     
     nivel_ameaca = int(alvo.split(' - ')[1])
-    armado = alvo.split(' - ')[-1]
+    armado = alvo.split(' - ')[2]
     if armado.lower() == 'sim':
         armado = True
     elif armado.lower() == 'não' or armado.lower() == 'nao':
@@ -69,8 +71,7 @@ for dia in range(dia_inicial, -1, -1):
         
     if autor_musica == 'DJ Electrohead' and nome_alvo == 'DJ Electrohead':
         print("DJ Electrohead é morto na sua frente. Lhe avisaram para NÃO FALAR com ele.")
-        input()
-        input()
+        dia_inicial -= 1
         continue
     
     classificacao = classificar_alvo(nivel_ameaca, armado)
@@ -83,6 +84,7 @@ for dia in range(dia_inicial, -1, -1):
         break
     ataques_inimigos = input()
     ataques_refletidos(ataques_inimigos)
+    dia_inicial -= 1
     
 if missao_sucesso:
     print()
